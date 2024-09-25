@@ -7,6 +7,7 @@ const NotFound = () => {
       <div className="w-[450px] mb-7">
         <img src={notfoundIcon} alt="not found" />
       </div>
+      <h1 className="text-8xl text-primary">404</h1>
       <p className="text-4xl mb-4">
         Sorry, we couldn’t find the page you’re looking for.
       </p>
