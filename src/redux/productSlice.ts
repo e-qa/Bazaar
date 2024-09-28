@@ -24,12 +24,23 @@ export const getAllProducts = createAsyncThunk("getAllProducts", async () => {
   return response.data;
 });
 
+export const getProductsByCategory = createAsyncThunk(
+  "getProductsByCategory",
+  async (category: string) => {
+    const response = await axiosInstance(`/category/${category}`);
+    return response.data;
+  }
+);
+
 const productsSlice = createSlice({
   name: "products",
   initialState,
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(getAllProducts.fulfilled, (state, action) => {
+      state.products = action.payload;
+    });
+    builder.addCase(getProductsByCategory.fulfilled, (state, action) => {
       state.products = action.payload;
     });
   },
