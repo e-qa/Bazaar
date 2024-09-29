@@ -13,16 +13,26 @@ export interface Product {
 
 interface State {
   products: Product[];
+  productsDetail: Product[];
 }
 
 const initialState: State = {
   products: [],
+  productsDetail: [],
 };
 
 export const getAllProducts = createAsyncThunk("getAllProducts", async () => {
   const response = await axiosInstance("/");
   return response.data;
 });
+
+export const getProductsById = createAsyncThunk(
+  "getProductsById",
+  async (id: string) => {
+    const response = await axiosInstance(`/${id}`);
+    return response.data;
+  }
+);
 
 export const getProductsByCategory = createAsyncThunk(
   "getProductsByCategory",
@@ -42,6 +52,9 @@ const productsSlice = createSlice({
     });
     builder.addCase(getProductsByCategory.fulfilled, (state, action) => {
       state.products = action.payload;
+    });
+    builder.addCase(getProductsById.fulfilled, (state, action) => {
+      state.productsDetail = action.payload;
     });
   },
 });
